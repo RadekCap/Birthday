@@ -68,8 +68,28 @@
             Vnitřek mám žhavý jako letní slunce, dovnitř vložíš těsto a ven vyjde zlatý zázrak. Když se zapnu, voní to po chlebu a koláčích — kde se to děje?
         </div>
         <div class="navigation">
-            <a href="5.html" class="nav-button">Další →</a>
+            <a href="5.html" class="nav-button" onclick="playClickSound()">Další →</a>
         </div>
     </div>
+
+    <script>
+        function playClickSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+        }
+    </script>
 </body>
 </html>
