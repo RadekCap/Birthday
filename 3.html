@@ -1,11 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page 3</title>
+    <title>Stránka 3 - Hádanka</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            text-align: center;
+        }
+        .number {
+            font-size: 48px;
+            color: #4facfe;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .riddle {
+            font-size: 22px;
+            line-height: 1.6;
+            color: #333;
+            font-style: italic;
+            margin: 20px 0;
+        }
+        .emoji {
+            font-size: 60px;
+            margin: 20px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>3</h1>
+    <div class="container">
+        <div class="number">3</div>
+        <div class="emoji">📻</div>
+        <div class="riddle">
+            Vlny uvnitř tiše tančí, jídlo jim hraje na notu bez ohně. Kdo cvakne dvířka a za chvíli pípne — kde to hučí a ohřívá se talíř?
+        </div>
+    </div>
 </body>
 </html>
