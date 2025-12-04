@@ -40,6 +40,24 @@
             font-size: 60px;
             margin: 20px 0;
         }
+        .navigation {
+            margin-top: 30px;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
     </style>
     <script>
         window.addEventListener('load', function() {
@@ -58,6 +76,9 @@
         <div class="emoji">🐱</div>
         <div class="riddle">
             V misce šustí naděje a kočičí nos se k němu sklání. Dává sílu skákat, mňoukat i přitulit se k nohám — kde to je?
+        </div>
+        <div class="navigation">
+            <a href="8.html" class="nav-button">Další →</a>
         </div>
     </div>
 </body>

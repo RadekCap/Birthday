@@ -40,6 +40,24 @@
             font-size: 60px;
             margin: 20px 0;
         }
+        .navigation {
+            margin-top: 30px;
+        }
+        .nav-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
     </style>
     <script>
         window.addEventListener('load', function() {
@@ -58,6 +76,9 @@
         <div class="emoji">📻</div>
         <div class="riddle">
             Vlny uvnitř tiše tančí, jídlo jim hraje na notu bez ohně. Kdo cvakne dvířka a za chvíli pípne — kde to hučí a ohřívá se talíř?
+        </div>
+        <div class="navigation">
+            <a href="4.html" class="nav-button">Další →</a>
         </div>
     </div>
 </body>
