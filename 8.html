@@ -106,12 +106,8 @@
                 <span class="emoji">👨‍👩‍👧</span>
                 <span class="text">Parents</span>
             </div>
-            <div class="clue-item">
-                <span class="emoji">🪑</span>
-                <span class="text">Table</span>
-            </div>
         </div>
-        <div class="hint">Hledej obrázek na tomto místě</div>
+        <div class="hint">Tady!</div>
     </div>
 
     <div id="celebration" class="celebration hidden"></div>
@@ -141,7 +137,7 @@
             music.play().catch(e => console.log('Music autoplay prevented'));
 
             let count = 0;
-            const numbers = [13, 19];
+            const numbers = [19, 13];
 
             const interval = setInterval(() => {
                 celebrationDiv.textContent = numbers[count % 2] + '! 🎉';
