@@ -112,14 +112,32 @@
 
     <div id="celebration" class="celebration hidden"></div>
 
-    <audio id="celebrationMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
+    <div id="youtube-player" style="display: none;"></div>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         const celebrationDiv = document.getElementById('celebration');
-        const music = document.getElementById('celebrationMusic');
         const colors = ['#ff9a9e', '#fecfef', '#667eea', '#764ba2', '#f093fb', '#f5576c'];
+        let player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                videoId: '9jK-NcRmVcw',
+                playerVars: {
+                    autoplay: 1,
+                    controls: 0,
+                    loop: 1,
+                    playlist: '9jK-NcRmVcw'
+                },
+                events: {
+                    onReady: onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
 
         function createConfetti() {
             const confetti = document.createElement('div');
@@ -134,7 +152,6 @@
 
         function startCelebration() {
             celebrationDiv.classList.remove('hidden');
-            music.play().catch(e => console.log('Music autoplay prevented'));
 
             let count = 0;
             const numbers = [19, 13];
