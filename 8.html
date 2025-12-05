@@ -92,6 +92,32 @@
         .hidden {
             display: none;
         }
+        .play-button {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: #ff9a9e;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 40px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 154, 158, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .play-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(255, 154, 158, 0.6);
+        }
+        .play-button:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
 <body>
@@ -112,32 +138,58 @@
 
     <div id="celebration" class="celebration hidden"></div>
 
+    <button id="play-button" class="play-button" title="Play music">🎵</button>
+
     <div id="youtube-player" style="display: none;"></div>
 
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         const celebrationDiv = document.getElementById('celebration');
+        const playButton = document.getElementById('play-button');
         const colors = ['#ff9a9e', '#fecfef', '#667eea', '#764ba2', '#f093fb', '#f5576c'];
         let player;
+        let playerReady = false;
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
                 videoId: '9jK-NcRmVcw',
                 playerVars: {
-                    autoplay: 1,
+                    autoplay: 0,
                     controls: 0,
                     loop: 1,
                     playlist: '9jK-NcRmVcw'
                 },
                 events: {
-                    onReady: onPlayerReady
+                    onReady: onPlayerReady,
+                    onStateChange: onPlayerStateChange
                 }
             });
         }
 
         function onPlayerReady(event) {
-            event.target.playVideo();
+            playerReady = true;
+            // Try autoplay for browsers that support it
+            event.target.playVideo().catch(() => {
+                // Autoplay failed, button will be used
+                console.log('Autoplay prevented - use play button');
+            });
         }
+
+        function onPlayerStateChange(event) {
+            // If playing, hide the button
+            if (event.data === YT.PlayerState.PLAYING) {
+                playButton.classList.add('hidden');
+            }
+        }
+
+        function playMusic() {
+            if (playerReady && player) {
+                player.playVideo();
+                playButton.classList.add('hidden');
+            }
+        }
+
+        playButton.addEventListener('click', playMusic);
 
         function createConfetti() {
             const confetti = document.createElement('div');
