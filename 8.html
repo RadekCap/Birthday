@@ -157,7 +157,8 @@
                     autoplay: 0,
                     controls: 0,
                     loop: 1,
-                    playlist: '9jK-NcRmVcw'
+                    playlist: '9jK-NcRmVcw',
+                    start: 12
                 },
                 events: {
                     onReady: onPlayerReady,
@@ -184,6 +185,7 @@
 
         function playMusic() {
             if (playerReady && player) {
+                player.seekTo(12, true);
                 player.playVideo();
                 playButton.classList.add('hidden');
             }
