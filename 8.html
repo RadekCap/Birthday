@@ -118,6 +118,63 @@
         .play-button:active {
             transform: scale(0.95);
         }
+        .stop-button {
+            position: fixed;
+            bottom: 40px;
+            right: 140px;
+            background: #f5576c;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 40px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .stop-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(245, 87, 108, 0.6);
+        }
+        .stop-button:active {
+            transform: scale(0.95);
+        }
+        .play-instruction {
+            position: fixed;
+            bottom: 130px;
+            right: 20px;
+            background: white;
+            color: #ff9a9e;
+            padding: 15px 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            font-size: 18px;
+            font-weight: bold;
+            z-index: 1000;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .play-instruction::after {
+            content: '↓';
+            position: absolute;
+            bottom: -25px;
+            right: 25px;
+            font-size: 30px;
+            color: #ff9a9e;
+            animation: bounce 1s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
     </style>
 </head>
 <body>
@@ -138,7 +195,9 @@
 
     <div id="celebration" class="celebration hidden"></div>
 
+    <div id="play-instruction" class="play-instruction">Click here to play</div>
     <button id="play-button" class="play-button" title="Play music">🎵</button>
+    <button id="stop-button" class="stop-button hidden" title="Stop music">⏹</button>
 
     <div id="youtube-player" style="display: none;"></div>
 
@@ -146,6 +205,8 @@
     <script>
         const celebrationDiv = document.getElementById('celebration');
         const playButton = document.getElementById('play-button');
+        const stopButton = document.getElementById('stop-button');
+        const playInstruction = document.getElementById('play-instruction');
         const colors = ['#ff9a9e', '#fecfef', '#667eea', '#764ba2', '#f093fb', '#f5576c'];
         let player;
         let playerReady = false;
@@ -177,9 +238,16 @@
         }
 
         function onPlayerStateChange(event) {
-            // If playing, hide the button
+            // If playing, hide play button and instruction, show stop button
             if (event.data === YT.PlayerState.PLAYING) {
                 playButton.classList.add('hidden');
+                playInstruction.classList.add('hidden');
+                stopButton.classList.remove('hidden');
+            }
+            // If paused or stopped, show play button, hide stop button
+            else if (event.data === YT.PlayerState.PAUSED || event.data === YT.PlayerState.ENDED) {
+                playButton.classList.remove('hidden');
+                stopButton.classList.add('hidden');
             }
         }
 
@@ -188,10 +256,21 @@
                 player.seekTo(12, true);
                 player.playVideo();
                 playButton.classList.add('hidden');
+                playInstruction.classList.add('hidden');
+                stopButton.classList.remove('hidden');
+            }
+        }
+
+        function stopMusic() {
+            if (playerReady && player) {
+                player.pauseVideo();
+                playButton.classList.remove('hidden');
+                stopButton.classList.add('hidden');
             }
         }
 
         playButton.addEventListener('click', playMusic);
+        stopButton.addEventListener('click', stopMusic);
 
         function createConfetti() {
             const confetti = document.createElement('div');
